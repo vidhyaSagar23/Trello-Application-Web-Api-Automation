@@ -1,4 +1,4 @@
-package com.sagar.resources;
+package com.sagar.utils;
 
 public class DataConfigConstants {
 }
