@@ -1,34 +1,46 @@
 package com.sagar.testcomponents;
 
+import com.sagar.pageobjects.LandingPage;
 import com.sagar.utils.Utilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
-import java.io.File;
-import java.io.FileReader;
+import java.time.Duration;
 import java.util.Properties;
 
 public class BaseTest {
-    private final Utilities utilities = new Utilities();
-    WebDriver driver;
+    public WebDriver driver;
+    public Utilities utilities = new Utilities();
+    Properties applicationProperties;
+    public LandingPage landingPage;
+
     @BeforeMethod
-    public void beforeSuite(){
-        File file = utilities.getFileObject("src/main/java/com/sagar/resources/Application.properties");
-        FileReader reader = utilities.getFileReader(file);
-        Properties properties = utilities.loadProperties(reader);
-        String uri = properties.getProperty("baseuri");
-        String browser = properties.getProperty("browser");
-        initializeDriver(browser);
-        System.out.println("initialized");
-        driver.get(uri);
-        driver.manage().window().maximize();
-        System.out.println("maximized");
+    public void beforeMethod(){
+         initializeDriver();
+         landingPage = new LandingPage(driver);
+         landingPage.goTo(applicationProperties.getProperty("baseuri"));
     }
 
-    public void initializeDriver(String browser){
-        if(browser.equalsIgnoreCase("chrome")){
+    @BeforeTest
+    public void beforeTest(){
+
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+    }
+
+    public void initializeDriver() {
+        applicationProperties = utilities.loadProperties("Application.properties");
+        String browser = applicationProperties.getProperty("browser");
+        if(browser.equals("chrome")){
             driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10000));
         }
     }
 }

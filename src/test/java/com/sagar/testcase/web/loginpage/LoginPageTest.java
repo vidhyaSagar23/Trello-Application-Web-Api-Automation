@@ -5,7 +5,8 @@ import org.testng.annotations.Test;
 
 public class LoginPageTest extends BaseTest {
     @Test
-    public void loginTest(){
-        System.out.println("started");
+    public void openLoginPage() throws InterruptedException {
+        landingPage.clickLoginOption();
+        Thread.sleep(5000);
     }
 }

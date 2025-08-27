@@ -1,35 +1,27 @@
 package com.sagar.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 public class Utilities {
-    public File getFileObject(String filePath){
-        String rootPath = System.getProperty("user.dir");
-        File file = new File(rootPath + filePath);
-        return file;
-    }
-
-    public FileReader getFileReader(File file){
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return  fileReader;
-    }
-
-    public Properties loadProperties(FileReader reader){
+    /**
+     * Load properties file from resources folder
+     * @param fileName name of the properties file
+     * @return Properties object
+     */
+    public Properties loadProperties(String fileName) {
         Properties properties = new Properties();
-        try {
-            properties.load(reader);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        // Load file from classpath
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            if (input == null) {
+                throw new RuntimeException("File not found in resources: " + fileName);
+            }
+            properties.load(input);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load properties file: " + fileName, e);
         }
+
         return properties;
     }
 }
