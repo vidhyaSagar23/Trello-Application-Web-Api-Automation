@@ -17,8 +17,9 @@ public class LandingPage {
     @FindBy(xpath = "//div[@class='Buttonsstyles__ButtonGroup-sc-1jwidxo-3 jnMZCI']/a[contains(text(), 'Log in')]")
     WebElement loginOption;
 
-    public void clickLoginOption(){
+    public LoginPage clickLoginOption(){
         loginOption.click();
+        return new LoginPage(driver);
     }
 
     public void goTo(String uri) {
