@@ -14,25 +14,19 @@ import java.util.Properties;
 public class BaseTest {
     public WebDriver driver;
     public Utilities utilities = new Utilities();
-    Properties applicationProperties;
+    public Properties applicationProperties;
     public LandingPage landingPage;
 
     @BeforeMethod
     public void beforeMethod(){
          initializeDriver();
          landingPage = new LandingPage(driver);
-         landingPage.goTo(applicationProperties.getProperty("baseuri"));
     }
 
-    @BeforeTest
-    public void beforeTest(){
-
-    }
-
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void tearDown(){
+//        driver.quit();
+//    }
 
     public void initializeDriver() {
         applicationProperties = utilities.loadProperties("Application.properties");
