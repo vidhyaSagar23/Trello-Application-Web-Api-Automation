@@ -18,7 +18,8 @@ public class LandingPage extends AbstractComponents {
     @FindBy(xpath = "//div[@class='Buttonsstyles__ButtonGroup-sc-1jwidxo-3 jnMZCI']/a[contains(text(), 'Log in')]")
     WebElement loginOption;
 
-    public LoginPage clickLoginOption(){
+    public LoginPage clickLoginOption() throws InterruptedException {
+        Thread.sleep(10);
         loginOption.click();
         return new LoginPage(driver);
     }

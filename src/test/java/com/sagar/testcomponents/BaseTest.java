@@ -4,6 +4,7 @@ import com.sagar.pageobjects.LandingPage;
 import com.sagar.utils.Utilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -30,10 +31,17 @@ public class BaseTest {
     public void initializeDriver() {
         applicationProperties = utilities.loadProperties("Application.properties");
         String browser = applicationProperties.getProperty("browser");
+        boolean headless = Boolean.parseBoolean(applicationProperties.getProperty("headless"));
+        ChromeOptions options = new ChromeOptions();
+        if(headless){
+            options.addArguments("--headless=new", "--window-size=1920,1080");
+        }
         if(browser.equals("chrome")){
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10000));
+            driver = new ChromeDriver(options);
+            if(!headless){
+                driver.manage().window().maximize();
+            }
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
     }
 }
