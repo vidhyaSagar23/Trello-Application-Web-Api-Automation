@@ -1,11 +1,12 @@
 package com.sagar.pageobjects;
 
+import com.sagar.abstractcomponents.AbstractComponents;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends AbstractComponents {
     WebDriver driver;
     public LoginPage(WebDriver driver){
         super();

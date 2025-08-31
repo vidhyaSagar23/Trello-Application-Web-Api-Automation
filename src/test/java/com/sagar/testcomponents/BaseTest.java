@@ -4,6 +4,7 @@ import com.sagar.pageobjects.LandingPage;
 import com.sagar.utils.Utilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
@@ -21,10 +22,10 @@ public class BaseTest {
          landingPage = new LandingPage(driver);
     }
 
-//    @AfterMethod
-//    public void tearDown(){
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+    }
 
     public void initializeDriver() {
         applicationProperties = utilities.loadProperties("Application.properties");
