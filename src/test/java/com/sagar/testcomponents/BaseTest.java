@@ -23,10 +23,10 @@ public class BaseTest {
          landingPage = new LandingPage(driver);
     }
 
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void tearDown(){
+//        driver.quit();
+//    }
 
     public void initializeDriver() {
         applicationProperties = utilities.loadProperties("Application.properties");
